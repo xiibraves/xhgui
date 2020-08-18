@@ -80,15 +80,15 @@ class Xhgui_Searcher_Pdo implements Xhgui_Searcher_Interface
     {
         $stmt = $this->pdo->prepare("
           SELECT
-            profile,
-            url,
-            SERVER,
-            GET,
-            ENV,
-            simple_url,
-            request_ts,
-            request_ts_micro,
-            request_date
+            `profile`,
+            `url`,
+            `SERVER`,
+            `GET`,
+            `ENV`,
+            `simple_url`,
+            `request_ts`,
+            `request_ts_micro`,
+            `request_date`
           FROM {$this->table}
           WHERE id = :id
         ");
@@ -151,20 +151,20 @@ class Xhgui_Searcher_Pdo implements Xhgui_Searcher_Interface
 
         $stmt = $this->pdo->query("
           SELECT
-            id,
-            url,
-            SERVER,
-            GET,
-            ENV,
-            simple_url,
-            request_ts,
-            request_ts_micro,
-            request_date,
-            main_wt,
-            main_ct,
-            main_cpu, 
-            main_mu,
-            main_pmu
+            `id`,
+            `url`,
+            `SERVER`,
+            `GET`,
+            `ENV`,
+            `simple_url`,
+            `request_ts`,
+            `request_ts_micro`,
+            `request_date`,
+            `main_wt`,
+            `main_ct`,
+            `main_cpu`, 
+            `main_mu`,
+            `main_pmu`
           FROM {$this->table}
           ORDER BY request_ts DESC
         ", PDO::FETCH_ASSOC);

@@ -92,18 +92,24 @@ class Xhgui_ServiceContainer extends Pimple
         $this['pdo'] = $this->share(function ($c) {
             return new PDO(
                 $c['config']['pdo']['dsn'],
-                $c['config']['pdo']['pass'],
-                $c['config']['pdo']['user']
+                $c['config']['pdo']['user'],
+                $c['config']['pdo']['pass']
             );
         });
 
-        $this['searcher.mongo'] = function ($c) {
-            return new Xhgui_Searcher_Mongo($c['db']);
-        };
+        switch ($config['save.handler']) {
+            case 'mongodb':
+                $this['searcher.mongo'] = function ($c) {
+                    return new Xhgui_Searcher_Mongo($c['db']);
+                };
+                break;
+            case 'pdo':
+                $this['searcher.pdo'] = function ($c) {
+                    return new Xhgui_Searcher_Pdo($c['pdo'], $c['config']['pdo']['table']);
+                };
+                break;
+        }
 
-        $this['searcher.pdo'] = function ($c) {
-            return new Xhgui_Searcher_Pdo($c['pdo'], $c['config']['pdo']['table']);
-        };
 
         $this['searcher'] = function ($c) {
             $config = $c['config'];

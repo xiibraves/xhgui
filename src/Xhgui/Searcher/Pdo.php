@@ -29,16 +29,16 @@ class Xhgui_Searcher_Pdo implements Xhgui_Searcher_Interface
     {
         $stmt = $this->pdo->query("
           SELECT
-            id,
-            profile,
-            url,
-            SERVER,
-            GET,
-            ENV,
-            simple_url,
-            request_ts,
-            request_ts_micro,
-            request_date
+            `id`,
+            `profile`,
+            `url`,
+            `SERVER`,
+            `GET`,
+            `ENV`,
+            `simple_url`,
+            `request_ts`,
+            `request_ts_micro`,
+            `request_date`
           FROM {$this->table}
           ORDER BY request_date ASC
           LIMIT 1

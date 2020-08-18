@@ -97,18 +97,17 @@ class Xhgui_ServiceContainer extends Pimple
             );
         });
 
-        switch ($config['save.handler']) {
-            case 'mongodb':
-                $this['searcher.mongo'] = function ($c) {
-                    return new Xhgui_Searcher_Mongo($c['db']);
-                };
-                break;
-            case 'pdo':
-                $this['searcher.pdo'] = function ($c) {
-                    return new Xhgui_Searcher_Pdo($c['pdo'], $c['config']['pdo']['table']);
-                };
-                break;
-        }
+        $this['searcher.mongo'] = function ($c) {
+            if (isset($c['db'])) {
+                return new Xhgui_Searcher_Mongo($c['db']);
+            }
+        };
+
+        $this['searcher.pdo'] = function ($c) {
+            if (isset($c['pdo'])) {
+                return new Xhgui_Searcher_Pdo($c['pdo'], $c['config']['pdo']['table']);
+            }
+        };
 
 
         $this['searcher'] = function ($c) {
